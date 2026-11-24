@@ -1,0 +1,12 @@
+APP FICHAS TÉCNICAS GRUPO VECTOR (PWA instalable)
+171 SKU del Manual Técnico Vector v2.2 — edición cliente (sin clase ABCD, sin precios).
+
+USO LOCAL (PC): no funciona con doble clic por seguridad del navegador.
+ 1) Abre una terminal en esta carpeta y ejecuta:  python -m http.server 8080
+ 2) Abre http://localhost:8080 en Chrome o Edge → botón "Instalar app".
+
+PUBLICAR (recomendado, para Android y PC): sube esta carpeta a un repo de GitHub
+y activa Settings → Pages → Branch: main / root. Abre la URL en el celular → "Instalar app".
+
+Buscar por: 1202-61, 1202 - 61, 120261, o palabras (hexagonal 1", raschel 80%, púa).
+Para actualizar: reemplaza pdf/<SKU>.pdf y data.json, y sube la versión en sw.js.

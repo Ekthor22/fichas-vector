@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fichas técnicas Grupo Vector</title>
+<meta name="theme-color" content="#175778">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: herramienta de mostrador para vendedores y clientes: buscar, ver, descargar.
+   IDEA: el manual técnico Vector convertido en ficha arrancable por SKU.
+   PICTURE: la misma ficha del PDF: banda azul degradada, foto, KPIs con borde turquesa.
+   COLOUR and TYPE: azul Vector #175778, turquesa #1f93ab y #36b5c7, blanco; Inter.
+   LAYOUT: búsqueda arriba; lista a la izquierda y ficha a la derecha; en teléfono se apilan. */
+:root{color-scheme:light dark;--navy:#175778;--teal:#1f93ab;--lt:#36b5c7;--bg:light-dark(#eef4f6,#0f171c);--card:light-dark(#fff,#18232a);--ink:light-dark(#1d2b36,#eef3f6);--mut:light-dark(#5d7380,#9db1bc);--line:light-dark(#d7e6ec,#2a3a44);--soft:light-dark(#f1f8fa,#1f2e37);--acc:light-dark(#175778,#5cc6d6)}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,"DejaVu Sans",Arial,sans-serif;overflow-x:clip}
+header{background:#fff;border-bottom:3px solid var(--teal)}
+.top{max-width:1240px;margin:auto;display:flex;align-items:center;gap:16px;padding:12px max(4vw,14px)}
+.top img{height:38px}.top .tt{margin-left:auto;text-align:right;color:var(--navy);font-weight:800;letter-spacing:2px;font-size:15px}
+.top .tt small{display:block;color:var(--teal);letter-spacing:0;font-weight:600;font-size:12px}
+.bar{background:linear-gradient(90deg,#175778,#1f93ab 70%,#36b5c7);color:#fff}
+.bar div{max-width:1240px;margin:auto;padding:8px max(4vw,14px);display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:14px;font-weight:600}
+#install{margin-left:auto;background:#fff;color:var(--navy);border:0;border-radius:6px;padding:8px 14px;font:800 14px Inter,Arial;cursor:pointer;min-height:40px}
+main{max-width:1240px;margin:auto;padding:16px max(4vw,14px) 40px}
+.search{display:flex;gap:10px;flex-wrap:wrap}
+.search input{flex:1 1 280px;font:500 18px Inter,Arial;padding:14px 16px;border:2px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);min-height:52px}
+.search input:focus{outline:none;border-color:var(--teal)}
+.tog{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--mut)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 14px Inter,Arial;cursor:pointer;min-height:40px}
+.chip small{color:var(--mut);font-weight:500}
+.chip[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}.chip[aria-pressed=true] small{color:#cfe6ee}
+.count{color:var(--mut);font-size:14px;margin:8px 0}
+.grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:18px;align-items:start}
+#list{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 250px);overflow:auto;padding-right:4px}
+.it{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;align-items:center;text-align:left;background:var(--card);border:1px solid var(--line);border-left:4px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--ink);font:inherit;min-height:64px}
+.it:hover,.it:focus-visible{border-left-color:var(--teal);outline:none}
+.it[aria-current=true]{border-left-color:var(--navy);background:var(--soft)}
+.it .th{width:56px;height:48px;border-radius:6px;overflow:hidden;background:#eef5f8}.it .th img{width:100%;height:100%;object-fit:cover}
+.it code{font:700 13px Inter,Arial;color:var(--acc)}
+.it code i{font-style:normal;font-size:10px;font-weight:800;background:#e8f6f9;color:#175778;border-radius:8px;padding:1px 6px;margin-left:6px}
+.it code i.n{background:#f5a623;color:#fff}
+.it span{font-size:14px;line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:24px;color:var(--mut)}
+.sheet{background:#fff;color:#1d2b36;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(23,87,120,.15)}
+.sh-head{display:flex;justify-content:space-between;align-items:center;padding:16px 22px 12px;border-bottom:3px solid var(--teal);gap:12px}
+.sh-head img{height:34px}.sh-head b{color:var(--navy);letter-spacing:2px;font-weight:800}
+.sh-band{background:linear-gradient(90deg,#175778,#1f93ab 70%,#36b5c7);color:#fff;display:flex;justify-content:space-between;padding:7px 22px;font:800 13px Inter,Arial;letter-spacing:.5px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:20px;padding:18px 22px 8px;align-items:center}
+.ref{color:var(--teal);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.hero h1{font:800 clamp(20px,2.6vw,27px)/1.18 Inter,Arial;margin:6px 0 8px;color:var(--navy);text-wrap:balance}
+.desc{color:#4a5a66;margin:6px 0 0;font-size:14px}
+.tag{display:inline-block;border-radius:10px;padding:2px 9px;font-size:11px;font-weight:800;letter-spacing:.5px;margin:0 6px 4px 0;background:#e8f6f9;color:#175778;border:1px solid var(--lt)}
+.tag.n{background:#f5a623;color:#fff;border-color:#f5a623}
+.pic{border-radius:10px;height:190px;overflow:hidden;background:#eef5f8;border:1px solid #d7e6ec}.pic img{width:100%;height:100%;object-fit:cover}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;padding:6px 22px 4px}
+.kpi{background:#f1f8fa;border-left:3px solid var(--teal);padding:8px 10px;border-radius:4px}
+.kpi b{display:block;color:#5d7380;font-size:11px;text-transform:uppercase;font-weight:600}.kpi span{font-weight:800;font-size:17px;color:var(--navy)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;padding:0 22px}
+.sheet h2{font:800 13px Inter,Arial;text-transform:uppercase;margin:16px 0 8px;color:var(--navy);border-bottom:2px solid var(--lt);padding-bottom:4px;letter-spacing:.5px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:6px 8px;border-bottom:1px solid #e1ebef;vertical-align:top;font-weight:600}
+td:first-child{color:#5d7380;width:44%}tr:nth-child(odd) td{background:#f8fbfc}
+ul{list-style:none;padding:0;margin:0;font-size:13.5px;line-height:1.45}
+li{position:relative;padding-left:16px;margin-bottom:6px}li:before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;background:var(--teal);border-radius:50%}
+.kit{display:flex;flex-wrap:wrap;gap:6px}.kit span{font-size:12.5px;border:1px solid var(--teal);color:var(--navy);padding:3px 10px;border-radius:12px;font-weight:600}
+.acts{display:flex;gap:10px;flex-wrap:wrap;padding:18px 22px}
+.btn{border:0;border-radius:8px;padding:12px 18px;font:700 15px Inter,Arial;cursor:pointer;min-height:46px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn.p{background:var(--navy);color:#fff}.btn.s{background:var(--teal);color:#fff}.btn.g{background:#eef4f6;color:#175778}
+.btn:focus-visible,.chip:focus-visible{outline:3px solid var(--lt);outline-offset:2px}
+.msg{font-size:14px;color:#5d7380;align-self:center}
+.sh-foot{background:var(--navy);color:#cfe6ee;display:flex;justify-content:space-between;padding:10px 22px;font-size:12px;flex-wrap:wrap;gap:6px}.sh-foot b{color:#fff}
+#back{display:none}
+@media(max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}#list{max-height:none}.grid.show #list,.grid.show .count{display:none}.grid:not(.show) #detail{display:none}#back{display:inline-flex}.hero,.cols{grid-template-columns:minmax(0,1fr)}.pic{order:-1;height:200px}}
+@media(max-width:600px){.top img{height:30px}.top .tt{font-size:12px}.sh-head img{height:26px}.hero,.acts,.kpis,.cols{padding-inline:14px}table{font-size:13px}}
+@media(prefers-reduced-motion:no-preference){.sheet{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><img src="logo_vector.png" alt="Grupo Vector"><div class="tt">FICHAS TÉCNICAS<small>Mallas · Cercos · Alambres · Plásticos</small></div></div>
+  <div class="bar"><div><span id="total">Cargando catálogo…</span><button id="install" hidden>Instalar app</button></div></div>
+</header>
+<main>
+  <div class="search">
+    <input id="q" type="search" placeholder="SKU (1202-61 o 120261) o descripción (ej: hexagonal 1&quot;)" autocomplete="off" aria-label="Buscar ficha técnica">
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Familias"></div>
+  <div class="grid" id="grid">
+    <div>
+      <div class="count" id="count"></div>
+      <div id="list" role="listbox" aria-label="Resultados"></div>
+    </div>
+    <div id="detail"></div>
+  </div>
+</main>
+<script>
+{
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[×X]/g, 'X').replace(/[^A-Z0-9/ .,"%]/g, ' ');
+const tight = s => norm(s).replace(/[^A-Z0-9]/g, '');
+let DATA = [], fam = 'Todas', sel = null, downloads = null;
+const store = { get(k) { try { return localStorage.getItem(k) } catch (e) { return null } }, set(k, v) { try { localStorage.setItem(k, v) } catch (e) {} } };
+const ORDER = ['Mallas Rombo','Mallas Hexagonales','Mallas Soldadas','Harneros y Mosquiteras','Mallas Plásticas','Malla de Seguridad Multifilamento','Mallas Ganaderas','Mallas Raschel','Paneles Electrosoldados','Sistema Malla 3D','Alambres','Púas y Concertinas','Clavos y Grapas','Polietilenos','Dimensionados'];
+
+function score(d, q) {
+  if (!q) return 1;
+  const tq = tight(q), words = norm(q).split(/\s+/).filter(Boolean);
+  let s = 0;
+  if (d.s === tq) s += 100; else if (d.s.startsWith(tq)) s += 60; else if (tq.length >= 3 && /^\d+$/.test(tq) && d.s.includes(tq)) s += 30;
+  if (words.every(w => d._h.includes(w))) s += 20;
+  return s;
+}
+const inFam = d => fam === 'Todas' || (fam === 'Dimensionados' ? d.dim : d.k === fam);
+function results() {
+  const q = $('#q').value.trim();
+  return DATA.filter(inFam).map(d => [d, score(d, q)]).filter(x => x[1] > 0)
+    .sort((a, b) => b[1] - a[1] || ORDER.indexOf(a[0].k) - ORDER.indexOf(b[0].k) || a[0].s.localeCompare(b[0].s)).map(x => x[0]);
+}
+function renderList() {
+  const r = results();
+  $('#count').textContent = r.length ? `${r.length} ficha${r.length > 1 ? 's' : ''}${fam !== 'Todas' ? ' en ' + fam : ''}` : '';
+  $('#list').innerHTML = r.length ? r.map(d => `<button class="it" role="option" data-s="${d.s}" aria-current="${!!sel && sel.s === d.s}"><div class="th"><img src="${esc(d.i)}" alt="" loading="lazy"></div><div><code>${esc(d.c)}${d.dim ? '<i>DIM</i>' : ''}${d.nuevo ? '<i class="n">NUEVO</i>' : ''}</code><span>${esc(d.n)}</span></div></button>`).join('')
+    : `<div class="empty">No hay fichas para “${esc($('#q').value)}”. Prueba con el código sin guion (120261) o con una palabra de la descripción.</div>`;
+  if (!sel && r.length && innerWidth > 820) show(r[0], false);
+}
+function show(d, mobile = true) {
+  sel = d;
+  document.querySelectorAll('.it').forEach(b => b.setAttribute('aria-current', b.dataset.s === d.s));
+  const kp = d.p.length ? `<div class="kpis">${d.p.map(([a, v]) => `<div class="kpi"><b>${esc(a)}</b><span>${esc(v)}</span></div>`).join('')}</div>` : '';
+  const rows = [['Código Vector', d.c], ['Código Softland', d.s], ['Familia', d.k], ...d.r];
+  const li = xs => xs.map(x => `<li>${esc(x)}</li>`).join('');
+  $('#detail').innerHTML = `<article class="sheet">
+    <div class="sh-head"><img src="logo_vector.png" alt="Grupo Vector"><b>FICHA TÉCNICA</b></div>
+    <div class="sh-band"><span>${esc(d.c)}</span><span>SKU ${esc(d.s)}</span></div>
+    <div class="hero"><div><div class="ref">${esc(d.sec)} · ${esc(d.k)}</div><h1>${esc(d.n)}</h1>
+      ${d.dim ? '<span class="tag">DIMENSIONADO</span>' : ''}${d.nuevo ? '<span class="tag n">NUEVO 2027</span>' : ''}
+      ${d.intro ? `<p class="desc">${esc(d.intro)}</p>` : ''}</div>
+      <div class="pic"><img src="${esc(d.i)}" alt="${esc(d.n)}"></div></div>
+    ${kp}
+    <div class="cols"><div><h2>Especificaciones técnicas</h2><table>${rows.map(([a, v]) => `<tr><td>${esc(a)}</td><td>${esc(v)}</td></tr>`).join('')}</table></div>
+    <div>${d.li.length ? `<h2>Características de la línea</h2><ul>${li(d.li)}</ul>` : ''}
+    ${d.u.length ? `<h2>Usos</h2><ul>${li(d.u)}</ul>` : ''}
+    ${d.kit.length ? `<h2>Complementa con</h2><div class="kit">${d.kit.map(k => `<span>${esc(k)}</span>`).join('')}</div>` : ''}</div></div>
+    <div class="acts">
+      <button class="btn g" id="back">← Volver</button>
+      <button class="btn p" id="dl">Descargar PDF</button>
+      <a class="btn s" href="pdf/${d.s}.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+      <button class="btn g" id="copy">Copiar SKU</button>
+      <span class="msg" id="msg" role="status"></span>
+    </div>
+    <div class="sh-foot"><span><b>Grupo Vector</b> · vectorsa.cl</span><span>Mallas · Cercos · Alambres · Plásticos</span></div>
+  </article>`;
+  $('#back').onclick = () => { $('#grid').classList.remove('show'); scrollTo(0, 0) };
+  $('#dl').onclick = () => download(d);
+  $('#copy').onclick = async () => { try { await navigator.clipboard.writeText(d.s); msg('SKU copiado') } catch (e) { msg('No se pudo copiar') } };
+  if (mobile && innerWidth <= 820) { $('#grid').classList.add('show'); scrollTo(0, 0) }
+  store.set('fv:last', d.s);
+}
+function msg(t) { const m = $('#msg'); if (m) m.textContent = t }
+async function download(d) {
+  const name = `Ficha Tecnica Vector ${d.s}.pdf`, url = `pdf/${d.s}.pdf`;
+  if (downloads) {
+    try { msg('Preparando PDF…'); const blob = await (await fetch(url)).blob(); await downloads.save({ filename: name, data: blob }); msg('PDF descargado') }
+    catch (e) { const c = e && e.code; msg(c === 'declined' ? 'Descarga cancelada' : c === 'rate_limited' ? 'Espera un momento y vuelve a intentar' : 'Usa "Abrir PDF" para verlo y guardarlo') }
+    return;
+  }
+  const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); msg('PDF descargado');
+}
+function chips() {
+  const counts = {}; DATA.forEach(d => { counts[d.k] = (counts[d.k] || 0) + 1; if (d.dim) counts.Dimensionados = (counts.Dimensionados || 0) + 1 });
+  const fs = ['Todas', ...ORDER.filter(c => counts[c])];
+  $('#chips').innerHTML = fs.map(c => `<button class="chip" aria-pressed="${c === fam}" data-k="${esc(c)}">${esc(c)} <small>${c === 'Todas' ? DATA.length : counts[c]}</small></button>`).join('');
+}
+$('#chips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (!b) return; fam = b.dataset.k; chips(); sel = null; renderList() });
+$('#list').addEventListener('click', e => { const b = e.target.closest('.it'); if (!b) return; show(DATA.find(d => d.s === b.dataset.s)) });
+let t; $('#q').addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { sel = null; store.set('fv:q', $('#q').value); renderList() }, 120) });
+$('#q').addEventListener('keydown', e => { if (e.key === 'Enter') { const r = results(); if (r[0]) show(r[0]) } });
+
+fetch('data.json').then(r => r.json()).then(j => {
+  DATA = j.map(d => Object.assign(d, { _h: norm([d.c, d.s, d.n, d.k, d.dim ? 'DIMENSIONADO DIM' : '', d.r.map(x => x[1]).join(' ')].join(' ')) }));
+  $('#total').textContent = `${DATA.length} productos · Manual Técnico Vector v2.2`;
+  $('#q').value = store.get('fv:q') || '';
+  chips(); renderList();
+  const last = DATA.find(d => d.s === store.get('fv:last'));
+  if (last && innerWidth > 820) show(last, false);
+}).catch(() => { $('#list').innerHTML = '<div class="empty">No se pudo cargar el catálogo. Revisa la conexión y recarga.</div>' });
+
+if (window.claude && claude.use) claude.use('downloads').then(n => { downloads = n }).catch(() => {});
+let deferred = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; $('#install').hidden = false });
+$('#install').addEventListener('click', async () => { if (!deferred) return; deferred.prompt(); await deferred.userChoice; deferred = null; $('#install').hidden = true });
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) { try { navigator.serviceWorker.register('sw.js').catch(() => {}) } catch (e) {} }
+}
+</script>
+</body>
+</html>
